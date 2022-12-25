@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: /nginx/nginx.docker
+    volumes:
+      - ./:/var/www
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/ssl:/etc/nginx/ssl
+    ports:
+      - "8080:443"
+      - "8080:8080"
+    links:
+      - php-fpm
+
+  php-fpm:
+    build:
+      context: ./
+      dockerfile: /php/php-fpm.docker
+    volumes:
+      - ./:/var/www
